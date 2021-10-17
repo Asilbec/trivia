@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios';
 import arrayShuffle from 'array-shuffle';
 import FadeIn from 'react-fade-in';
@@ -36,6 +36,9 @@ function App() {
 
 
   function newGame() {
+    var liszzz = [answer, wrong1, wrong2, wrong3]
+    liszzz = ''
+    console.log(liszzz)
     console.log(document.getElementById('questionTypeSelect').value)
     const link = 'https://opentdb.com/api.php?amount=1&category=' + document.getElementById('questionTypeSelect').value + '&type=multiple'
     axios.get(link).then(
@@ -45,6 +48,7 @@ function App() {
         newWrong1(((response.data.results[0].incorrect_answers[0]).replace(/&quot;/g, '"')).replace(/&#039;/g, ''))
         newWrong2(((response.data.results[0].incorrect_answers[1]).replace(/&quot;/g, '"')).replace(/&#039;/g, ''))
         newWrong3(((response.data.results[0].incorrect_answers[2]).replace(/&quot;/g, '"')).replace(/&#039;/g, ''))
+
 
         const good = [
           (((response.data.results[0].correct_answer).replace(/&quot;/g, '"')).replace(/&#039;/g, '')),
