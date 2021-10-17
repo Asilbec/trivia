@@ -18,6 +18,7 @@ function App() {
   const [order, newOrder] = useState([''])
 
 
+
   function checkAnswer(name) {
 
     if (document.getElementById(name).innerText === answer) {
@@ -39,8 +40,7 @@ function App() {
     var liszzz = [answer, wrong1, wrong2, wrong3]
     liszzz = ''
     console.log(liszzz)
-    console.log(document.getElementById('questionTypeSelect').value)
-    const link = 'https://opentdb.com/api.php?amount=1&category=' + document.getElementById('questionTypeSelect').value + '&type=multiple'
+    const link = 'https://opentdb.com/api.php?amount=1&category=' + document.getElementById('questionTypeSelect').value + '&difficulty=' + document.getElementById('questionTypeSelectz').value + '&type=multiple'
     axios.get(link).then(
       function (response) {
         next(((response.data.results[0].question).replace(/&quot;/g, '"')).replace(/&#039;/g, ''))
@@ -76,13 +76,21 @@ function App() {
   }
 
 
+  function reviewAnswers() {
+    document.getElementById('asking').style.display = 'none'
+    document.getElementById('menu').style.display = 'flex'
+    document.getElementById('askidng').style.display = 'none'
+
+  }
+
+
   return (
     <div className="App">
       <div id='menu' className='main'>
         <div className='form'>
           <div id='questionType'>
             <h1> Category: </h1>
-            <select id='questionTypeSelect'>
+            <select className="questionFrom" id='questionTypeSelect'>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
               <option value="11">Entertainment: Film</option>
@@ -107,6 +115,13 @@ function App() {
               <option value="30">Science: Gadgets</option>
               <option value="31">Entertainment: Japanese Anime</option>
               <option value="32">Entertainment: Cartoon; Animations</option>
+            </select>
+            <select className='questionFrom' id='questionTypeSelectz'>
+              <option value="">any</option>
+              <option value="easy">easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+
             </select>
             <button onClick={() => newGame()} id='submit'>Continue</button>
           </div>
@@ -141,7 +156,11 @@ function App() {
         <h1 id='gameover'>
           Game over
           <p> The correct answer was  {answer}</p></h1>
-        <button onClick={() => newGame()} className='newSub' id='submit'>Continue</button>
+        <div className="resetStuff">
+          <button onClick={() => reviewAnswers()} className='newSub' id='submit'>Hard Reset</button>
+          <button onClick={() => newGame()} className='newSub' id='submit'>Reset</button>
+        </div>
+
 
 
       </div>
